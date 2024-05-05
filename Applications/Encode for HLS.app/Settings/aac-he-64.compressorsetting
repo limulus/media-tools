@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<setting name="aac-he-64">
+    <version>409600</version>
+    <description>AAC%20HE,%2064%20kbps</description>
+    <default-destination>vod.limulus.net</default-destination>
+    <descriptionKey>AudioStandardDescKey</descriptionKey>
+    <encoder name="MPEG4">
+        <audio-video-encode isEnabled="no"/>
+        <file-extension>m4a</file-extension>
+        <job-can-be-segmented>no</job-can-be-segmented>
+        <duration-change factor="100" new-duration="" source-at-output="no"/>
+        <marker-image width="0" height="0"/>
+        <encode-cc>no</encode-cc>
+        <encode-chapters>yes</encode-chapters>
+        <include-hidden-metadata>yes</include-hidden-metadata>
+        <metadata-options>1</metadata-options>
+        <audio-encode name="MPEG4" isEnabled="yes">
+            <auto-channel_layout>no</auto-channel_layout>
+            <auto-channel_sampleSize>yes</auto-channel_sampleSize>
+            <auto-format_sampleRate>yes</auto-format_sampleRate>
+            <audio-format-info>44100.000000 2 16 44100 N 6619138 Y</audio-format-info>
+            <codec-type>aach</codec-type>
+            <quality>64</quality>
+            <audio-encoding-strategy>2</audio-encoding-strategy>
+            <audio-encoding-bitrate>64000</audio-encoding-bitrate>
+        </audio-encode>
+        <video-encode name="MPEG4" isEnabled="no">
+            <bounds width="640" height="480" pixelAspect="0"/>
+            <crop left="0" top="0" right="0" bottom="0"/>
+            <padding left="0" top="0" right="0" bottom="0"/>
+            <frame-rate>R30000/1001</frame-rate>
+            <automatic video-conversion="" color-spec="" width="0" height="0" frame-rate="0" crop="no" auto-pad="0" center-crop="0" field-dominance="no"/>
+            <video-conversion>1 3 1 0 N 0 1 0 0 0</video-conversion>
+            <color-spec>0</color-spec>
+            <computed-pad>no</computed-pad>
+            <computed-crop>no</computed-crop>
+            <rotation>0</rotation>
+            <flip>0</flip>
+            <color-space primaries="2" transfer="2" matrix="2"/>
+            <color-spec-default>-1000</color-spec-default>
+            <raw-to-log>0</raw-to-log>
+            <camera-lut>0</camera-lut>
+            <camera-lut-color>-1000</camera-lut-color>
+            <camera-log-default>-1000</camera-log-default>
+            <ignore-crop-during-processing>no</ignore-crop-during-processing>
+            <dithering-setting>0</dithering-setting>
+            <embedded_dovis_format>0</embedded_dovis_format>
+            <purpose-group/>
+            <codec-type>avc1</codec-type>
+            <codec-manufacturer>appl</codec-manufacturer>
+            <family-codec-configured>no</family-codec-configured>
+            <spatial pixelDepth="32" minQuality="768" quality="768"/>
+            <temporal keyFrameInterval="30" minQuality="768" quality="768" partial-sync="0"/>
+            <icm2-options max-passes="1" allow-frame-reoder="no"/>
+            <data-rate>125000</data-rate>
+            <data-rate-limit-percentage>0</data-rate-limit-percentage>
+            <data-rate-limit-duration>0</data-rate-limit-duration>
+            <encoder-properties><![CDATA[YnBsaXN0MDDSAQIDCl8QD0gyNjRFbnRyb3B5TW9kZVxQcm9maWxlTGV2ZWzTBAUGBwgJW29iamVjdFZhbHVlW2lzRGVmYXVsdEhRW2Rlc2NyaXB0aW9uVUNBVkxDCVVDQVZMQ9IEBgsMXxAXSDI2NF9CYXNlbGluZV9BdXRvTGV2ZWxYQmFzZWxpbmUIDR8sMz9LV11eZGmDAAAAAAAAAQEAAAAAAAAADQAAAAAAAAAAAAAAAAAAAIw=]]></encoder-properties>
+            <video-360-metadata-format>0</video-360-metadata-format>
+            <video-360-metadata-auto>yes</video-360-metadata-auto>
+            <encoder-variant>0</encoder-variant>
+            <alpha-quality>1</alpha-quality>
+            <bit-rate-mode>0</bit-rate-mode>
+        </video-encode>
+        <hinting hinting-type="1" packet-type="1450" packet-duration="100"/>
+        <allow-podcast-data>no</allow-podcast-data>
+    </encoder>
+    <filter-set/>
+</setting>
