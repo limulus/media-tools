@@ -4,13 +4,14 @@ Various scrappy tools for media production.
 
 > :warning: This repository is made up of scripts that I have cobbled together to aid in
 > producing videos for my [website]. They were made quickly with LLM assistance with minimal
-> concern for maintainability. They are meant to run on a Mac with [Node.js], [Xcode], and
-> [Compressor].
+> concern for maintainability. They are meant to run on a Mac with [Node.js], [Xcode],
+> [Compressor], and [HTTP Live Streaming Tools].
 
 [website]: https://limulus.net/
 [node.js]: https://nodejs.org/
 [xcode]: https://developer.apple.com/xcode/
 [compressor]: https://www.apple.com/final-cut-pro/compressor/
+[http live streaming tools]: https://developer.apple.com/documentation/http-live-streaming/using-apple-s-http-live-streaming-hls-tools
 
 ## Setup
 
