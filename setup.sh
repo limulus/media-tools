@@ -15,7 +15,7 @@ tar -xzf ./.cache/whisper.cpp.tar.gz -C local/whisper.cpp --strip-components=1
 cd local/whisper.cpp
 
 # Download the Whisper model
-./models/download-ggml-model.sh small.en
+./models/download-ggml-model.sh large-v2
 
 # Create a virtual environment in the local directory
 if [ ! -d "venv" ]; then
@@ -32,7 +32,7 @@ pip3 install openai-whisper
 pip3 install coremltools
 
 # Convert the Whisper model to CoreML
-./models/generate-coreml-model.sh small.en
+./models/generate-coreml-model.sh large-v2
 
 # Deactivate the virtual environment
 deactivate
