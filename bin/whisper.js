@@ -2,6 +2,7 @@
 
 import { XMLParser } from 'fast-xml-parser'
 import { spawn } from 'node:child_process'
+import { rename, unlink } from 'node:fs/promises'
 import { basename, extname, join } from 'node:path'
 import { packageDirectory } from 'pkg-dir'
 
@@ -47,6 +48,16 @@ await runWithPassThrough(join(whisperDir, 'main'), [
   join(whisperDir, 'models', 'ggml-large-v2.bin'),
   ...wavFiles,
 ])
+
+// Replace `.wav.vtt` with `.vtt` in the output files
+await Promise.all(
+  wavFiles.map(async (file) => {
+    await rename(`${file}.vtt`, `${basename(file, '.wav')}.vtt`)
+  })
+)
+
+// Remove the temporary WAV files
+await Promise.all(wavFiles.map((file) => unlink(file)))
 
 function run(command, args) {
   console.log(`Running: ${command} ${args.join(' ')}`)
