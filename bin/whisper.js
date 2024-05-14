@@ -2,7 +2,7 @@
 
 import { XMLParser } from 'fast-xml-parser'
 import { spawn } from 'node:child_process'
-import { join } from 'node:path'
+import { basename, extname, join } from 'node:path'
 import { packageDirectory } from 'pkg-dir'
 
 const [, , ...files] = process.argv
@@ -25,8 +25,9 @@ for (let file of files) {
 
     if (needsConversion) {
       console.log(`Converting ${file} to 16kHz WAV...`)
-      await run('afconvert', ['-f', 'WAVE', '-d', 'LEI16@16000', file, `${file}.wav`])
-      file = `${file}.wav`
+      const wavFile = `${noExtension(file)}.wav`
+      await run('afconvert', ['-f', 'WAVE', '-d', 'LEI16@16000', file, wavFile])
+      file = wavFile
     }
 
     wavFiles.push(file)
@@ -81,4 +82,8 @@ function runWithPassThrough(command, args) {
       resolve() // Resolve the promise without any output
     })
   })
+}
+
+function noExtension(file) {
+  return basename(file, extname(file))
 }
