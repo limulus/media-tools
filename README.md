@@ -32,6 +32,12 @@ file, so beware of doing this on a metered connection.
 The `bin/whisper.js` script can be used to transcribe video files in WebVTT format. It will
 first extract the audio to a WAV file that will work with whisper.cpp.
 
+The `--track` option can be used to specify the track number to transcribe. I use this
+because I record with OBS set up to record a separate audio track for my microphone that
+does have noise gate or other filters applied. Interestingly, the Whisper model seems to be
+faster at transcribing when there is some background noise and a bit less prone to repeating
+the last phrase over and over.
+
 ## Preparing a Video for HTTP Live Streaming
 
 Once you have a master 4K ProRes video ready for distribution, follow these steps to prepare

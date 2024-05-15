@@ -4,10 +4,23 @@ import { XMLParser } from 'fast-xml-parser'
 import { spawn } from 'node:child_process'
 import { rename, unlink } from 'node:fs/promises'
 import { basename, extname, join } from 'node:path'
+import { parseArgs } from 'node:util'
 import { packageDirectory } from 'pkg-dir'
 
-const [, , ...files] = process.argv
 const wavFiles = []
+
+const {
+  positionals: files,
+  values: { track },
+} = parseArgs({
+  allowPositionals: true,
+  options: {
+    track: {
+      type: 'string',
+      default: '0',
+    },
+  },
+})
 
 for (let file of files) {
   try {
@@ -27,7 +40,16 @@ for (let file of files) {
     if (needsConversion) {
       console.log(`Converting ${file} to 16kHz WAV...`)
       const wavFile = `${noExtension(file)}.wav`
-      await run('afconvert', ['-f', 'WAVE', '-d', 'LEI16@16000', file, wavFile])
+      await run('afconvert', [
+        '--read-track',
+        track,
+        '-f',
+        'WAVE',
+        '-d',
+        'LEI16@16000',
+        file,
+        wavFile,
+      ])
       file = wavFile
     }
 
