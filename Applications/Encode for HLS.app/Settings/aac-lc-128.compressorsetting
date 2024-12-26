@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <setting name="aac-lc-128">
-    <version>409600</version>
+    <version>413696</version>
     <description>AAC,%20128%20kbps</description>
     <default-destination>vod.limulus.net</default-destination>
     <descriptionKey>AudioHighDescKey</descriptionKey>
@@ -46,6 +46,7 @@
             <dithering-setting>0</dithering-setting>
             <embedded_dovis_format>0</embedded_dovis_format>
             <purpose-group/>
+            <auto-purpose>yes</auto-purpose>
             <codec-type>avc1</codec-type>
             <codec-manufacturer>appl</codec-manufacturer>
             <family-codec-configured>no</family-codec-configured>
@@ -60,6 +61,10 @@
             <video-360-metadata-auto>yes</video-360-metadata-auto>
             <encoder-variant>0</encoder-variant>
             <alpha-quality>1</alpha-quality>
+            <stereo-spatial-auto>yes</stereo-spatial-auto>
+            <stereo-baseline>R-1/0</stereo-baseline>
+            <stereo-fov>R-1/0</stereo-fov>
+            <stereo_hdisp>R0/1</stereo_hdisp>
             <bit-rate-mode>0</bit-rate-mode>
         </video-encode>
         <hinting hinting-type="1" packet-type="1450" packet-duration="100"/>

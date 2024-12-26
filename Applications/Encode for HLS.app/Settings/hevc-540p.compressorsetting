@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <setting name="hevc-540p">
-    <version>409600</version>
+    <version>413696</version>
     <description>HEVC,%20up%20to%20960%20x%20540</description>
     <default-destination>vod.limulus.net</default-destination>
     <descriptionKey>CellularMediumHEVCDescKey</descriptionKey>
@@ -48,20 +48,25 @@
             <dithering-setting>0</dithering-setting>
             <embedded_dovis_format>0</embedded_dovis_format>
             <purpose-group/>
+            <auto-purpose>yes</auto-purpose>
             <codec-type>hvc1</codec-type>
             <codec-manufacturer>appl</codec-manufacturer>
             <family-codec-configured>no</family-codec-configured>
             <spatial pixelDepth="24" minQuality="768" quality="768"/>
             <temporal keyFrameInterval="0" minQuality="768" quality="768" partial-sync="0"/>
             <icm2-options max-passes="0" allow-frame-reoder="yes"/>
-            <data-rate>200000</data-rate>
+            <data-rate>240000</data-rate>
             <data-rate-limit-percentage>0</data-rate-limit-percentage>
             <data-rate-limit-duration>0</data-rate-limit-duration>
-            <encoder-properties><![CDATA[YnBsaXN0MDDSAQIDDF8QEGNvZGVjLXByb3BlcnRpZXNaZW5jb2Rlci1pZNEEBVxQcm9maWxlTGV2ZWzTBgcICQoLW29iamVjdFZhbHVlW2lzRGVmYXVsdEhRW2Rlc2NyaXB0aW9uXxATSEVWQ19NYWluX0F1dG9MZXZlbAlfEBM4LUJpdCBDb2xvciAoNDoyOjApVGh2YzEIDSArLjtCTlpmfH2TAAAAAAAAAQEAAAAAAAAADQAAAAAAAAAAAAAAAAAAAJg=]]></encoder-properties>
+            <encoder-properties><![CDATA[YnBsaXN0MDDSAQIDDF8QEGNvZGVjLXByb3BlcnRpZXNaZW5jb2Rlci1pZNEEBVxQcm9maWxlTGV2ZWzTBgcICQoLW29iamVjdFZhbHVlW2lzRGVmYXVsdEhRW2Rlc2NyaXB0aW9uXxAVSEVWQ19NYWluMTBfQXV0b0xldmVsCF8QFDEwLUJpdCBDb2xvciAoNDoyOjApVGh2YzEIDSArLjtCTlpmfn+WAAAAAAAAAQEAAAAAAAAADQAAAAAAAAAAAAAAAAAAAJs=]]></encoder-properties>
             <video-360-metadata-format>0</video-360-metadata-format>
             <video-360-metadata-auto>yes</video-360-metadata-auto>
             <encoder-variant>1</encoder-variant>
             <alpha-quality>1</alpha-quality>
+            <stereo-spatial-auto>yes</stereo-spatial-auto>
+            <stereo-baseline>R-1/0</stereo-baseline>
+            <stereo-fov>R-1/0</stereo-fov>
+            <stereo_hdisp>R0/1</stereo_hdisp>
         </video-encode>
         <write-clap>yes</write-clap>
         <qt-streaming>0</qt-streaming>

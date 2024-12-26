@@ -5,7 +5,7 @@
 	<key>HasLoadedInitialSettings</key>
 	<true/>
 	<key>ServerAddress</key>
-	<string>tcp://127.0.0.1:59688</string>
+	<string>tcp://127.0.0.1:56978</string>
 	<key>ServerHostName</key>
 	<string>Barrel</string>
 	<key>ServerName</key>
@@ -14,7 +14,5 @@
 	<string>96BC0A38-C1A8-4BEA-BF0B-CDB1B1120493</string>
 	<key>ShouldShowUI</key>
 	<true/>
-	<key>destinationPath</key>
-	<string>/Users/eric/Desktop/Test</string>
 </dict>
 </plist>

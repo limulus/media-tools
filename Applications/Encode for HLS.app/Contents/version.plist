@@ -3,16 +3,16 @@
 <plist version="1.0">
 <dict>
 	<key>BuildVersion</key>
-	<string>23</string>
+	<string>6</string>
 	<key>CFBundleShortVersionString</key>
-	<string>4.7</string>
+	<string>4.9</string>
 	<key>CFBundleVersion</key>
-	<string>4.7</string>
+	<string>4.9</string>
 	<key>ProductBuildVersion</key>
-	<string>1D97a</string>
+	<string>2E91a</string>
 	<key>ProjectName</key>
 	<string>Compressor</string>
 	<key>SourceVersion</key>
-	<string>41000059016000000</string>
+	<string>43000110019000000</string>
 </dict>
 </plist>

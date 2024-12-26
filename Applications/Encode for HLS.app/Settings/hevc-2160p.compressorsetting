@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<setting name="avc-1440p">
+<setting name="hevc-2160p">
     <version>413696</version>
     <description>HEVC,%20up%20to%202560%20x%201440</description>
     <default-destination>vod.limulus.net</default-destination>
@@ -25,19 +25,19 @@
             <audio-encoding-bitrate>128000</audio-encoding-bitrate>
         </audio-encode>
         <video-encode name="QT" isEnabled="yes">
-            <bounds width="2560" height="1440" pixelAspect="0"/>
+            <bounds width="3840" height="2160" pixelAspect="0"/>
             <crop left="0" top="0" right="0" bottom="0"/>
             <padding left="0" top="0" right="0" bottom="0"/>
-            <frame-rate>R30/1</frame-rate>
-            <automatic video-conversion="" color-spec="" width="-0" height="-0" frame-rate="0" crop="no" auto-pad="0" center-crop="0" field-dominance="no"/>
-            <video-conversion>1 3 3 0 N 0 1 0 0 0</video-conversion>
-            <color-spec>3</color-spec>
+            <frame-rate>-100.000000</frame-rate>
+            <automatic video-conversion="" color-spec="" width="-0" height="-0" frame-rate="-100" crop="no" auto-pad="0" center-crop="-3" field-dominance="no"/>
+            <video-conversion>1 3 0 0 N 0 1 0 0 0</video-conversion>
+            <color-spec>0</color-spec>
             <computed-pad>no</computed-pad>
             <computed-crop>no</computed-crop>
             <rotation>0</rotation>
             <flip>0</flip>
             <color-space primaries="2" transfer="2" matrix="2"/>
-            <color-spec-default>3</color-spec-default>
+            <color-spec-default>-1000</color-spec-default>
             <raw-to-log>0</raw-to-log>
             <camera-lut>0</camera-lut>
             <camera-lut-color>-1000</camera-lut-color>
@@ -47,19 +47,19 @@
             <embedded_dovis_format>0</embedded_dovis_format>
             <purpose-group/>
             <auto-purpose>yes</auto-purpose>
-            <codec-type>avc1</codec-type>
+            <codec-type>hvc1</codec-type>
             <codec-manufacturer>appl</codec-manufacturer>
             <family-codec-configured>no</family-codec-configured>
             <spatial pixelDepth="24" minQuality="768" quality="768"/>
             <temporal keyFrameInterval="0" minQuality="768" quality="768" partial-sync="0"/>
             <icm2-options max-passes="0" allow-frame-reoder="yes"/>
-            <data-rate>1041666</data-rate>
+            <data-rate>1740000</data-rate>
             <data-rate-limit-percentage>0</data-rate-limit-percentage>
             <data-rate-limit-duration>0</data-rate-limit-duration>
-            <encoder-properties><![CDATA[YnBsaXN0MDDSAQIDEV8QEGNvZGVjLXByb3BlcnRpZXNaZW5jb2Rlci1pZNIEBQYNXxAPSDI2NEVudHJvcHlNb2RlXFByb2ZpbGVMZXZlbNMHCAkKCwxbb2JqZWN0VmFsdWVbaXNEZWZhdWx0SFFbZGVzY3JpcHRpb25VQ0FCQUMJVUNBQkFD0wcICQ4LEF8QE0gyNjRfSGlnaF9BdXRvTGV2ZWwJVEhpZ2hUYXZjMQgNICswQk9WYm56gIGHjqSlqgAAAAAAAAEBAAAAAAAAABIAAAAAAAAAAAAAAAAAAACv]]></encoder-properties>
+            <encoder-properties><![CDATA[YnBsaXN0MDDSAQIDDF8QEGNvZGVjLXByb3BlcnRpZXNaZW5jb2Rlci1pZNEEBVxQcm9maWxlTGV2ZWzTBgcICQoLW29iamVjdFZhbHVlW2lzRGVmYXVsdEhRW2Rlc2NyaXB0aW9uXxAVSEVWQ19NYWluMTBfQXV0b0xldmVsCF8QFDEwLUJpdCBDb2xvciAoNDoyOjApVGh2YzEIDSArLjtCTlpmfn+WAAAAAAAAAQEAAAAAAAAADQAAAAAAAAAAAAAAAAAAAJs=]]></encoder-properties>
             <video-360-metadata-format>0</video-360-metadata-format>
             <video-360-metadata-auto>yes</video-360-metadata-auto>
-            <encoder-variant>0</encoder-variant>
+            <encoder-variant>1</encoder-variant>
             <alpha-quality>1</alpha-quality>
             <stereo-spatial-auto>yes</stereo-spatial-auto>
             <stereo-baseline>R-1/0</stereo-baseline>
@@ -72,7 +72,7 @@
         <qt-video-passthrough>no</qt-video-passthrough>
     </encoder>
     <filter-set>
-        <filter filterName="SharpenEdgeFilter">
+        <filter filterName="SharpenEdgeFilter" filterEnabled="false">
             <amount current="6.000000"/>
         </filter>
     </filter-set>
