@@ -12,7 +12,6 @@
         <marker-image width="0" height="0"/>
         <encode-cc>no</encode-cc>
         <encode-chapters>yes</encode-chapters>
-        <auto-bit-rate-purpose>10</auto-bit-rate-purpose>
         <include-hidden-metadata>yes</include-hidden-metadata>
         <metadata-options>1</metadata-options>
         <audio-encode name="Audio" isEnabled="no">
@@ -55,7 +54,7 @@
             <spatial pixelDepth="24" minQuality="768" quality="768"/>
             <temporal keyFrameInterval="0" minQuality="768" quality="768" partial-sync="0"/>
             <icm2-options max-passes="0" allow-frame-reoder="yes"/>
-            <data-rate>240000</data-rate>
+            <data-rate>250000</data-rate>
             <data-rate-limit-percentage>0</data-rate-limit-percentage>
             <data-rate-limit-duration>0</data-rate-limit-duration>
             <encoder-properties><![CDATA[YnBsaXN0MDDSAQIDDF8QEGNvZGVjLXByb3BlcnRpZXNaZW5jb2Rlci1pZNEEBVxQcm9maWxlTGV2ZWzTBgcICQoLW29iamVjdFZhbHVlW2lzRGVmYXVsdEhRW2Rlc2NyaXB0aW9uXxAVSEVWQ19NYWluMTBfQXV0b0xldmVsCF8QFDEwLUJpdCBDb2xvciAoNDoyOjApVGh2YzEIDSArLjtCTlpmfn+WAAAAAAAAAQEAAAAAAAAADQAAAAAAAAAAAAAAAAAAAJs=]]></encoder-properties>

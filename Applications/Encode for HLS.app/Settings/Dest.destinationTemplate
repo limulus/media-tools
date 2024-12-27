@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><destinationTemplate name="vod.limulus.net"><parentURL>file:///Volumes/Pinnate/Compressor/vod.limulus.net/</parentURL><baseName/><extension/><format>%25T</format></destinationTemplate>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?><destinationTemplate name="Source"><parentURL>.</parentURL><baseName/><extension/><format>%25B-%25T</format></destinationTemplate>
