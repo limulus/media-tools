@@ -38,6 +38,11 @@ does have noise gate or other filters applied. Interestingly, the Whisper model 
 faster at transcribing when there is some background noise and a bit less prone to repeating
 the last phrase over and over.
 
+## Convert Captions From Final Cut Pro
+
+The iTunes Text Timing format that FCP produces is a better match for the WebVTT format. The
+`bin/itt-to-webvtt.js` script will do some basic conversion of `.itt` files to WebVTT.
+
 ## Preparing a Video for HTTP Live Streaming
 
 Once you have a master 4K ProRes video ready for distribution, follow these steps to prepare
@@ -46,7 +51,8 @@ it for being served via HLS:
 1. Drop it onto `Applications/Encode for HLS.app` to create a directory of MP4 files of
    various encodings.
 2. Create a `poster.jpeg` file in that directory to serve as the video’s poster image.
-3. Create an `en-us.vtt` file in that directory to serve as captions for the video.
+3. Create an `en-us.vtt` file in that directory to serve as captions for the video. (Check
+   out the `bin/itt-to-webvtt.js` script if creating captions in FCP.)
 4. Run `bin/hls-prep.js DIR` to create HLS manifest M3U8 files and segments.
 5. A new directory will be created inside that directory with a ULID. Upload this
    directory to S3.
