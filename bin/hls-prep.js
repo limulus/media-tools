@@ -45,7 +45,7 @@ await run('variantplaylistcreator', [
   join(streamDir, 'index.m3u8'),
   ...variants
     .sort(({ score: a }, { score: b }) => (parseFloat(a) <= parseFloat(b) ? -1 : 1))
-    .reverse() // Sort variants by score in descending order. This gets HEVC 1440p first.
+    .reverse() // Sort variants by score in descending order. This gets HEVC 2160p first.
     .map((v) => [v.url, v.plist, v.iframe && ['-iframe-url', v.iframe]].flat())
     .flat()
     .filter(Boolean),
@@ -145,6 +145,9 @@ function determineScore(variant) {
 
   let intraCodecRank
   switch (resolution) {
+    case '2160p':
+      intraCodecRank = 5
+      break
     case '1440p':
       intraCodecRank = 4
       break
