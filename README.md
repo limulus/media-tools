@@ -55,4 +55,4 @@ it for being served via HLS:
    out the `bin/itt-to-webvtt.js` script if creating captions in FCP.)
 4. Run `bin/hls-prep.js DIR` to create HLS manifest M3U8 files and segments.
 5. A new directory will be created inside that directory with a ULID. Upload this
-   directory to S3.
+   directory to vod.limulus.net.
