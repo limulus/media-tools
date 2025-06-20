@@ -70,6 +70,8 @@ This project implements a professional video production pipeline:
 - `fast-xml-parser`, `xml2js` - XML processing for captions
 - `ulid` - Unique directory naming for HLS outputs
 - `pkg-dir` - Package directory resolution
+- `iso-639-1` - Standard language code mapping (ISO 639-1)
+- `i18n-iso-countries` - Country/region code mapping (ISO 3166)
 
 **Required External Tools**:
 - macOS Compressor app
