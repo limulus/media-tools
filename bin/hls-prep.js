@@ -3,7 +3,7 @@
 import countries from 'i18n-iso-countries'
 import ISO6391 from 'iso-639-1'
 import { spawn } from 'node:child_process'
-import { cp, lstat, mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
+import { mkdir, readdir, readFile, writeFile } from 'node:fs/promises'
 import { basename, join } from 'node:path'
 import { ulid } from 'ulid'
 
@@ -20,6 +20,7 @@ const AUDIO_GROUPS = [
 
 const VTT_PREFIXES = {
   SUBTITLES: 'subs-',
+  METADATA: 'meta-',
 }
 
 const SUBTITLE_CHARACTERISTICS =
@@ -35,7 +36,6 @@ const AUDIO_GROUP_ASSIGNMENTS = {
 // Media track groups
 const TRACK_GROUPS = {
   SUBTITLES: 'subtitles',
-  METADATA: 'metadata',
 }
 
 // File extensions
@@ -77,13 +77,8 @@ async function main() {
   const streamDir = join(dir, id)
 
   const assets = await discoverAssets(dir)
-  const metadataDirectoryTracks = await processMetadataDirectories(
-    assets.metaDirs,
-    dir,
-    streamDir
-  )
-  const variants = await processMediaAssets(assets, streamDir)
-  await generateManifest({ ...assets, metadataDirectoryTracks }, variants, streamDir)
+  const variants = await processMediaAssets(assets, dir, streamDir)
+  await generateManifest(assets, variants, streamDir)
   await copyStaticAssets(dir, streamDir)
 }
 
@@ -115,26 +110,32 @@ async function discoverAssets(dir) {
   const movFiles = allFiles
     .filter((f) => f.isFile() && f.name.endsWith(FILE_EXTENSIONS.MOV))
     .map((f) => f.name)
-  const vttFiles = allFiles
-    .filter((f) => f.isFile() && f.name.endsWith(FILE_EXTENSIONS.VTT))
+  const subtitleFiles = allFiles
+    .filter(
+      (f) =>
+        f.isFile() && f.name.startsWith(VTT_PREFIXES.SUBTITLES) && f.name.endsWith(FILE_EXTENSIONS.VTT)
+    )
     .map((f) => f.name)
-  const metaDirs = allFiles
-    .filter((f) => f.isDirectory() && f.name.startsWith('meta-'))
+  const metadataFiles = allFiles
+    .filter(
+      (f) =>
+        f.isFile() && f.name.startsWith(VTT_PREFIXES.METADATA) && f.name.endsWith(FILE_EXTENSIONS.VTT)
+    )
     .map((f) => f.name)
 
-  // Classify VTT files and validate naming
-  const { subtitleTracks } = classifyVttFiles(vttFiles)
+  // Classify subtitle files and validate naming
+  const { subtitleTracks } = classifyVttFiles(subtitleFiles)
 
   return {
     m4aFiles,
     movFiles,
-    vttFiles,
-    metaDirs,
+    subtitleFiles,
+    metadataFiles,
     subtitleTracks,
   }
 }
 
-async function processMediaAssets(assets, streamDir) {
+async function processMediaAssets(assets, dir, streamDir) {
   const variants = []
 
   // Run mediafilesegmenter on each video file
@@ -149,8 +150,11 @@ async function processMediaAssets(assets, streamDir) {
 
   // Process subtitle tracks
   for (const subtitleTrack of assets.subtitleTracks) {
-    await processVttTrack(subtitleTrack, streamDir)
+    await processSubtitleVttTrack(subtitleTrack, streamDir)
   }
+
+  // Process metadata WebVTT files
+  await processMetadataVttFiles(assets.metadataFiles, dir, streamDir)
 
   return variants
 }
@@ -172,7 +176,8 @@ async function generateManifest(assets, variants, streamDir) {
   let lines = playlist.split('\n')
 
   lines = addAudioGroups(lines)
-  lines = addSubtitleAndMetadataTracks(lines, assets)
+  lines = addSubtitleTracks(lines, assets)
+  lines = addSessionDataEntries(lines, assets)
   lines = updateStreamEntries(lines, assets)
 
   await writeFile(join(streamDir, 'index.m3u8'), lines.join('\n'))
@@ -210,16 +215,10 @@ function addAudioGroups(lines) {
   return modifiedLines
 }
 
-function addSubtitleAndMetadataTracks(lines, assets) {
+function addSubtitleTracks(lines, assets) {
   const modifiedLines = [...lines]
-
-  const vttMediaEntries = [
-    ...assets.subtitleTracks.map(generateSubtitleMediaEntry),
-    ...assets.metadataDirectoryTracks.map(generateMetadataMediaEntry),
-  ]
-
+  const vttMediaEntries = [...assets.subtitleTracks.map(generateSubtitleMediaEntry)]
   modifiedLines.splice(findStreamEntryIndex(modifiedLines), 0, ...vttMediaEntries)
-
   return modifiedLines
 }
 
@@ -316,35 +315,17 @@ function classifyVttFiles(vttFiles) {
   const subtitleTracks = []
 
   for (const file of vttFiles) {
-    if (file.startsWith(VTT_PREFIXES.SUBTITLES)) {
-      const langCode = file.slice(
-        VTT_PREFIXES.SUBTITLES.length,
-        FILE_EXTENSIONS.VTT.length * -1
-      )
-      const languageInfo = parseLanguageCode(langCode)
-      subtitleTracks.push({
-        filename: file,
-        langCode,
-        ...languageInfo,
-        outputDir: `subs-${langCode}`,
-      })
-    } else if (
-      file.match(new RegExp(`^[a-z]{2}(-[a-z]{2})?\\${FILE_EXTENSIONS.VTT}$`, 'i'))
-    ) {
-      // Handle legacy format like 'en-us.vtt' or 'en.vtt'
-      const langCode = file.slice(0, FILE_EXTENSIONS.VTT.length * -1)
-      const languageInfo = parseLanguageCode(langCode)
-      subtitleTracks.push({
-        filename: file,
-        langCode,
-        ...languageInfo,
-        outputDir: `subs-${langCode}`,
-      })
-    } else {
-      throw new Error(
-        `Invalid VTT filename: ${file}. Expected format: '${VTT_PREFIXES.SUBTITLES}<language>${FILE_EXTENSIONS.VTT}' or '<language>${FILE_EXTENSIONS.VTT}' (e.g., 'en${FILE_EXTENSIONS.VTT}', 'en-us${FILE_EXTENSIONS.VTT}')`
-      )
-    }
+    const langCode = file.slice(
+      VTT_PREFIXES.SUBTITLES.length,
+      FILE_EXTENSIONS.VTT.length * -1
+    )
+    const languageInfo = parseLanguageCode(langCode)
+    subtitleTracks.push({
+      filename: file,
+      langCode,
+      ...languageInfo,
+      outputDir: `subs-${langCode}`,
+    })
   }
 
   return { subtitleTracks }
@@ -381,7 +362,7 @@ function parseLanguageCode(langCode) {
   }
 }
 
-async function processVttTrack(track, streamDir) {
+async function processSubtitleVttTrack(track, streamDir) {
   await mkdir(join(streamDir, track.outputDir), { recursive: true })
 
   await run(
@@ -397,6 +378,15 @@ async function processVttTrack(track, streamDir) {
     ],
     streamDir
   )
+}
+
+async function processMetadataVttFiles(metaVttFiles, dir, streamDir) {
+  for (const filename of metaVttFiles) {
+    const sourceFile = join(dir, filename)
+    const destFile = join(streamDir, filename)
+
+    await writeFile(destFile, await readFile(sourceFile))
+  }
 }
 
 // ============================================================================
@@ -452,41 +442,22 @@ function generateSubtitleMediaEntry(subtitleTrack) {
   )
 }
 
-function generateMetadataMediaEntry(metadataTrack) {
-  return generateMediaEntry('SUBTITLES', TRACK_GROUPS.METADATA, metadataTrack.name, {
-    uri: `${metadataTrack.outputDir}/index.m3u8`,
-  })
+function generateSessionDataEntry(dataId, value) {
+  return `#EXT-X-SESSION-DATA:DATA-ID="${dataId}",VALUE="${value}"`
 }
 
-async function processMetadataDirectories(metaDirs, dir, streamDir) {
-  const tracks = []
+function addSessionDataEntries(lines, assets) {
+  const modifiedLines = [...lines]
 
-  for (const dirName of metaDirs) {
-    const sourcePath = join(dir, dirName)
-    const outputDir = dirName // Use directory name as-is in output
-    const destPath = join(streamDir, outputDir)
+  for (const filename of assets.metadataFiles) {
+    const id = filename.slice(5, -4) // Remove 'meta-' prefix and '.vtt' suffix
+    const dataId = `net.limulus.hls.meta.webvtt.${id}.url`
+    const sessionDataEntry = generateSessionDataEntry(dataId, filename)
 
-    // Verify the directory contains an index.m3u8 file
-    try {
-      await lstat(join(sourcePath, 'index.m3u8'))
-    } catch {
-      console.warn(`Skipping ${dirName}: No index.m3u8 found`)
-      continue
-    }
-
-    // Copy the entire directory to the output stream directory
-    await cp(sourcePath, destPath, { recursive: true })
-
-    // Extract track name from directory name (remove 'meta-' prefix)
-    const trackName = dirName.replace(/^meta-/, '')
-
-    tracks.push({
-      name: trackName,
-      outputDir,
-    })
+    modifiedLines.splice(findStreamEntryIndex(modifiedLines), 0, sessionDataEntry)
   }
 
-  return tracks
+  return modifiedLines
 }
 
 function findStreamEntryIndex(lines) {

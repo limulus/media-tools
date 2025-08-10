@@ -40,7 +40,7 @@ node bin/itt-to-webvtt.js captions.itt --fps 30
 This project implements a professional video production pipeline:
 
 1. **Encoding**: Drop videos onto `Applications/Encode for HLS.app` (Compressor droplet)
-2. **Asset Preparation**: Add `poster.jpeg` and `en-us.vtt` to output directory
+2. **Asset Preparation**: Add `poster.jpeg`, subtitle files (`subs-en-us.vtt`, `subs-es.vtt`, etc.), and optional metadata files (`meta-location.vtt`, etc.) to output directory
 3. **HLS Processing**: Run `bin/hls-prep.js` to create streaming manifests and segments
 4. **Deployment**: Upload generated ULID directory to `vod.limulus.net`
 
@@ -105,5 +105,6 @@ This project implements a professional video production pipeline:
 - **Multi-variant Streaming**: Automatic generation of adaptive bitrate manifests
 - **Modern Codecs**: Both H.264 and H.265/HEVC support
 - **4K/HDR Ready**: Up to 2160p with 10-bit color depth
-- **Subtitle Integration**: Automatic subtitle segmentation and manifest creation
+- **Subtitle Integration**: Multi-language subtitle support with automatic segmentation
+- **Metadata Support**: WebVTT metadata tracks for custom data (location, biometrics, etc.)
 - **Professional Quality**: Uses Apple's professional HLS tools

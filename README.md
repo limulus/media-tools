@@ -51,26 +51,33 @@ it for being served via HLS:
 1. Drop it onto `Applications/Encode for HLS.app` to create a directory of MP4 files of
    various encodings.
 2. Create a `poster.jpeg` file in that directory to serve as the video’s poster image.
-3. Create an `subs-en-us.vtt` file in that directory to serve as captions for the video.
+3. Create subtitle files with `subs-` prefix in that directory (e.g., `subs-en-us.vtt`, `subs-es.vtt`).
    (Check out the `bin/itt-to-webvtt.js` script if creating captions in FCP.)
-4. WebVTT metadata tracks must be pre-segmented. The [tcx2webvtt] tool’s `--hls` option will
-   do this for you. Place them in the directory with a `meta-` prefix.
+4. Optional: Add WebVTT metadata tracks with a `meta-` prefix (e.g., `meta-location.vtt`).
 5. Run `./bin/hls-prep.js DIR` to create HLS manifest M3U8 files and segments.
 6. A new directory will be created inside that directory with a ULID. Upload this directory
    to vod.limulus.net.
-
-[tcx2webvtt]: https://github.com/limulus/tcx2webvtt
 
 ### Subtitle Track Naming
 
 Create subtitle files in your video directory using these naming conventions:
 
-- `en-us.vtt` - English (US) subtitles (legacy format)
-- `subs-en.vtt` - English subtitles (new format)
+- `subs-en-us.vtt` - English (US) subtitles
+- `subs-en.vtt` - English subtitles
 - `subs-es.vtt` - Spanish subtitles
 - `subs-fr.vtt` - French subtitles
 
 Use `bin/itt-to-webvtt.js` to convert Final Cut Pro ITT captions to WebVTT format.
+
+### Metadata Tracks
+
+WebVTT metadata files (e.g., `meta-location.vtt`) are made available via HLS session data
+entries. HLS players can use these session data entries to dynamically add track elements of
+`kind="metadata"` to their video element.
+
+Session data entries are keyed like so: `net.limulus.hls.meta.webvtt.{name}.url`, where
+`{name}` is the filename without the `meta-` prefix and `.vtt` extension. The value of the
+entry is the relative path to the WebVTT file.
 
 ### Complete Directory Structure Example
 
@@ -82,11 +89,7 @@ my-video/
 ├── poster.jpeg             # Video poster image
 ├── subs-en-us.vtt          # English subtitle track
 ├── subs-es.vtt             # Spanish subtitle track
-└── meta-eric/              # Biometric/location metadata track
-    ├── index.m3u8          # HLS playlist for metadata
-    ├── seg-00001.webvtt    # First metadata segment
-    ├── seg-00002.webvtt    # Second metadata segment
-    └── ...                 # Additional segments
+└── meta-location.vtt       # Location metadata track
 ```
 
 The HLS preparation script will automatically:
