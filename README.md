@@ -91,9 +91,3 @@ my-video/
 ├── subs-es.vtt             # Spanish subtitle track
 └── meta-location.vtt       # Location metadata track
 ```
-
-The HLS preparation script will automatically:
-
-- Process all subtitle files and include them in the HLS manifest
-- Copy metadata directories to the output and reference them in the manifest
-- Generate appropriate `EXT-X-MEDIA` entries for both subtitles and metadata tracks
