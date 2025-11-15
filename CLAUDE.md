@@ -58,7 +58,7 @@ This project implements a professional video production pipeline:
 - Supports 10-bit color depth and adaptive bitrate streaming
 
 **`/local/whisper.cpp/` - Transcription Engine**
-- Complete whisper.cpp installation with large-v2 model
+- Complete whisper.cpp installation with large-v3 model
 - CoreML-optimized for Mac hardware acceleration
 - Automatically set up by `setup.sh`
 

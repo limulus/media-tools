@@ -67,7 +67,7 @@ const whisperDir = join(
 await runWithPassThrough(join(whisperDir, 'main'), [
   '-ovtt',
   '-m',
-  join(whisperDir, 'models', 'ggml-large-v2.bin'),
+  join(whisperDir, 'models', 'ggml-large-v3.bin'),
   ...wavFiles,
 ])
 
