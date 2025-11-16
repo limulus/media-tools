@@ -23,9 +23,12 @@ npm install
 ```
 
 The `setup.sh` script will download and set up [whisper.cpp]. The Whisper model is a large
-file, so beware of doing this on a metered connection.
+file, so beware of doing this on a metered connection. [CMake], and its CLI command is
+required to build the tool (follow the instructions from the apps “Tools” menu to add the
+CLI to the `PATH`).
 
 [whisper.cpp]: https://github.com/ggerganov/whisper.cpp
+[CMake]: https://cmake.org/
 
 ## Transcribing Video
 

@@ -64,10 +64,24 @@ const whisperDir = join(
   'local',
   'whisper.cpp'
 )
-await runWithPassThrough(join(whisperDir, 'main'), [
+await runWithPassThrough(join(whisperDir, 'build', 'bin', 'whisper-cli'), [
   '-ovtt',
   '-m',
   join(whisperDir, 'models', 'ggml-large-v3.bin'),
+  '-t',
+  '12',
+  '-l',
+  'en',
+  '-bs',
+  '8',
+  '-pp',
+  '-sns',
+  '--vad',
+  '-vm',
+  join(whisperDir, 'models', 'ggml-silero-v5.1.2.bin'),
+  '--prompt',
+  "I'm recording a screencast where I demonstrate software development. I may be making use of Claude Code, which uses files like `CLAUDE.md`. I often program in TypeScript and sometimes Rust. I use macOS and VS Code.",
+  '--carry-initial-prompt',
   ...wavFiles,
 ])
 
